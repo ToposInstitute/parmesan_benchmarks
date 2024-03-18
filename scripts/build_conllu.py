@@ -128,7 +128,7 @@ def write_conll(doc, outfile, sent_id):
         if text == "":
             continue
         sent_id += 1
-        span_string = re.sub('\s=', ' ', text)
+        span_string = re.sub('\s+', ' ', text)
         outfile.write("# sent_id = %d\n" % sent_id)
         outfile.write("# text = %s\n" % span_string)
         for token in span:

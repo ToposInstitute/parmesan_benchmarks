@@ -35,3 +35,23 @@ Most benchmarks are generated from the corpora and associated metadata. Most
 benchmarks are generated automatically with the following command:
 
     python scripts/build_benchmarks.py
+
+The MWE-based benchmarks are constructed using the MWEToolkit, which must first
+be installed:
+
+    git clone git@gitlab.com:mwetoolkit/mwetoolkit3.git
+    cd mwetoolkit3
+    make
+    cd ..
+
+Then, run the toolkit on each of the three corpora:
+
+    python mwetoolkit3/bin/candidates.py -p patterns/np.xml --to PlainCandidates corpora/conllu/bct.conll > benchmarks/bct/mwe.txt
+    python mwetoolkit3/bin/candidates.py -p patterns/np.xml --to PlainCandidates corpora/conllu/tac.conll > benchmarks/tac/mwe.txt
+    python mwetoolkit3/bin/candidates.py -p patterns/np.xml --to PlainCandidates corpora/conllu/nlab.conll > benchmarks/nlab/mwe.txt
+
+Finally, we need to construct extractive versions of the base benchmarks:
+
+    python scripts/build_extractive_benchmarks.py
+
+## Terminology Generation

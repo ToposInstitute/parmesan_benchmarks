@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dict SYSTEM "dtd/mwetoolkit-patterns.dtd">
+<patterns>
+  <pat>
+    <pat repeat="{0,2}">
+      <either>
+        <pat><w pos="JJ"/></pat>
+        <pat><w pos="NN"/></pat>
+        <pat><w pos="NNS"/></pat>
+        <pat><w pos="NNP"/></pat>
+        <pat><w pos="NNPS"/></pat>
+      </either>
+    </pat>
+    <pat>
+      <either>
+        <pat><w pos="NN"/></pat>
+        <pat><w pos="NNS"/></pat>
+      </either>
+    </pat>
+  </pat>
+</patterns>
