@@ -54,4 +54,26 @@ Finally, we need to construct extractive versions of the base benchmarks:
 
     python scripts/build_extractive_benchmarks.py
 
+Some of the models require additional corpus processing.
+
+### DyGIE++
+
+To convert the corpora into an appropriate format for DyGIE++, run the
+following script:
+
+    python scripts/build_dygiepp.py
+
 ## Terminology Generation
+
+### DyGIE++
+
+Note that you will probably need to switch to a new virtual environment for
+DyGIE++, since it is incompatible dependencies. First, install DyGIE++ and its
+dependencies as well as the pretrained model:
+
+    git clone https://github.com/dwadden/dygiepp.git
+    pip install -r requirements/dygiepp.txt
+    mkdir dygiepp/pretrained
+    wget -P dygiepp/pretrained https://s3-us-west-2.amazonaws.com/ai2-s2-research/dygiepp/master/scierc.tar.gz
+
+

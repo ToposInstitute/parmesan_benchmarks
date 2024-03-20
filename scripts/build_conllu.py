@@ -91,7 +91,7 @@ def convert_nlab():
 
 def convert_tac():
 
-    with open("corpora/json/tac.json") as infile:
+    with open("corpora/json/tac_metadata.json") as infile:
         with open("corpora/conllu/tac.conll", 'w') as outfile:
             data = json.load(infile)
 
