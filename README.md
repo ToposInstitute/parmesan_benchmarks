@@ -76,4 +76,21 @@ dependencies as well as the pretrained model:
     mkdir dygiepp/pretrained
     wget -P dygiepp/pretrained https://s3-us-west-2.amazonaws.com/ai2-s2-research/dygiepp/master/scierc.tar.gz
 
+To generate the analysis for each corpus, run:
 
+    cd dygiepp
+    allennlp predict pretrained/scierc.tar.gz \
+        ../corpora/dygiepp/bct.jsonl \
+        --predictor dygie \
+        --include-package dygie \
+        --use-dataset-reader \
+        --output-file ../predictions/dygiepp/bct.jsonl \
+        --cuda-device 0 \
+        --silent
+
+### Evaluation
+
+To run evaluations on all of the predicted values for all corpora and
+terminology generation models, run:
+
+    python scripts/evaluate_terminology.py
