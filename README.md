@@ -88,6 +88,77 @@ To generate the analysis for each corpus, run:
         --cuda-device 0 \
         --silent
 
+### Textrank
+
+The textrank dependencies are installed with the corpus dependencies above, as
+there are no conflicting dependencies at this time. To generate the
+terminology, run:
+
+    python scripts/build_textrank.py
+
+### SpERT.PL
+
+Again, a separate virtual environment is recommended. Download the repository and extract the code:
+
+    git clone https://github.com/dksanyal/SpERT.PL
+    unzip SpERT.PL/CodeFinal.zip -d SpERT.PL/
+
+Download the pretrained models:
+
+    wget -P SpERT.PL/CodeFinal/InputsAndOutputs/pretrained/ https://s3-us-west-2.amazonaws.com/ai2-s2-research/scibert/huggingface_pytorch/scibert_scivocab_cased.tar
+    tar xvf SpERT.PL/CodeFinal/InputsAndOutputs/pretrained/scibert_scivocab/cased/scibert_scivocab_cased.tar
+
+Install the required dependencies:
+
+    pip install -r requirements/spert.txt
+
+Train the model:
+
+    python scripts/train_spert.py
+
+Run the model to produce predictions (ignore the output scores, we are only
+generating examples, not evaluating them yet):
+
+    python scripts/run_spert.py
+
+It may be necessary to change the names of the directories in these scripts to
+match the latest run. 
+
+Copy the predictions to the appropriate directory (you will need to change the
+directory name to match yours):
+
+    cp SpERT.PL/CodeFinal/InputsAndOutputs/data/log/\'scierc_eval\'/DIRNAME/examples_entities_sorted_test_epoch_0.html predictions/spert/bct.html
+
+### PL-Marker
+
+Again, a separate virtual environment is recommended. Download the repository
+and install the dependencies:
+
+    git clone https://github.com/thunlp/PL-Marker
+    pip install -r PL-Marker/requirements.txt
+    pip install -e PL-Marker/transformers
+
+Download the pretrained models from [here](https://drive.google.com/drive/folders/1_ccNEm9LlqegoGXl69PJEbSW16Qvx7X7) and place them in `PL-Marker/sciner-scibert`.
+
+Also download the necessary BERT models.
+
+    wget -P PL-Marker/bert_models/scibert_scivocab_uncased https://huggingface.co/allenai/scibert_scivocab_uncased/resolve/main/pytorch_model.bin
+    wget -P PL-Marker/bert_models/scibert_scivocab_uncased https://huggingface.co/allenai/scibert_scivocab_uncased/resolve/main/vocab.txt
+    wget -P PL-Marker/bert_models/scibert_scivocab_uncased https://huggingface.co/allenai/scibert_scivocab_uncased/resolve/main/config.json
+
+PL-Marker uses the same data format as DyGIE++, so we can reuse the same
+corpora from before. To run PL-Marker on a corpus, run:
+
+    python scripts/run_acener.py --model_type bertspanmarker \
+        --model_name_or_path  PL-Marker/bert_models/scibert_scivocab_uncased --do_lower_case \
+        --data_dir corpora/dygiepp/ \
+        --per_gpu_eval_batch_size 16 \
+        --max_seq_length 512 --max_pair_length 256 --max_mention_ori_length 8 \
+        --do_eval \
+        --fp16 --seed 42 --onedropout --lminit \
+        --test_file bct.jsonl \
+        --output_dir predictions/plmarker/bct --overwrite_output_dir --output_results
+
 ### Evaluation
 
 To run evaluations on all of the predicted values for all corpora and

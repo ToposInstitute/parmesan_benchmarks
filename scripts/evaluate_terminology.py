@@ -6,18 +6,35 @@ import json
 import os
 import spacy
 
+from bs4 import BeautifulSoup
+
 nlp = spacy.load("en_core_web_trf")
 
 def main():
 
     evaluate_dygiepp()
-    #evaluate_textrank()
-    #evaluate_spert()
+    evaluate_textrank()
+    evaluate_spert()
     #evaluate_plmarker()
 
 def evaluate_dygiepp():
 
+    print("EVALUATING MODEL: DyGIE++")
     terms = get_dygiepp_terms()
+
+    evaluate_all(terms)
+
+def evaluate_textrank():
+
+    print("EVALUATING MODEL: TextRank")
+    terms = get_textrank_terms()
+
+    evaluate_all(terms)
+
+def evaluate_spert():
+
+    print("EVALUATING MODEL: SpERT.PL")
+    terms = get_spert_terms()
 
     evaluate_all(terms)
 
@@ -93,6 +110,49 @@ def get_dygiepp_terms():
                         lemma_term = ' '.join([token.lemma_ for token in doc])
                         if lemma_term.strip():
                             terms.add(phrase.lower().strip())
+
+        all_terms[corpus] = terms
+
+    return all_terms
+
+def get_spert_terms():
+
+    all_terms = {}
+
+    for corpus in ['bct']:
+        corpus_file = os.path.join('predictions/spert', '%s.html' % corpus)
+
+        terms = set()
+        with open(corpus_file) as infile:
+            soup = BeautifulSoup(infile.read(), 'lxml')
+
+            for tag in soup.find_all(class_="entity"):
+                for label in tag.find_all(class_="type"):
+                    label.extract()
+
+                doc = nlp(tag.text)
+                lemma_term = ' '.join([token.lemma_ for token in doc])
+                if lemma_term.strip():
+                    terms.add(lemma_term.lower().strip())
+
+        all_terms[corpus] = terms
+
+    return all_terms
+
+def get_textrank_terms():
+
+    all_terms = {}
+
+    for corpus in ['bct']:
+        corpus_file = os.path.join('predictions/textrank', '%s.txt' % corpus)
+
+        terms = set()
+        with open(corpus_file) as infile:
+            for line in infile:
+                doc = nlp(line)
+                lemma_term = ' '.join([token.lemma_ for token in doc])
+                if lemma_term.strip():
+                    terms.add(lemma_term.lower().strip())
 
         all_terms[corpus] = terms
 
