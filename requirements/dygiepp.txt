@@ -73,4 +73,4 @@ urllib3==1.26.18
 wasabi==0.10.1
 wcwidth==0.2.13
 word2number==1.1
-zipp==3.15.0
+zipp==3.19.1
