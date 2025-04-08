@@ -1,8 +1,8 @@
-# parmesan_benchmarks
+# mathoscope_benchmarks
 
 This is the implementation of the experimental procedures and corpus generation
 methods described in our 2024 LREC-COLING Paper _Parmesan: Annotated
-Mathematical Corpora_. 
+Mathematical Corpora_. (Parmesan has been renamed Mathoscope in March 2025.)
 
 Because of conflicting dependencies, we recommend using separate Python virtual
 environments for corpus generation and each of the different terminology and
