@@ -49,7 +49,7 @@ pytz==2024.1
 PyYAML==6.0.1
 rapidfuzz==3.4.0
 regex==2023.12.25
-requests==2.32.2
+requests==2.32.4
 s3transfer==0.8.2
 sacremoses==0.0.53
 scikit-learn==1.5.0
