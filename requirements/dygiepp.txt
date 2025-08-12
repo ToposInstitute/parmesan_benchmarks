@@ -67,7 +67,7 @@ tokenizers==0.8.1rc1
 tomli==2.0.1
 torch==2.7.1
 tqdm==4.66.3
-transformers==4.51.0
+transformers==4.53.0
 typing_extensions==4.7.1
 urllib3==2.5.0
 wasabi==0.10.1
