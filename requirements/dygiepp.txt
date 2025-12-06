@@ -69,7 +69,7 @@ torch==2.8.0
 tqdm==4.66.3
 transformers==4.53.0
 typing_extensions==4.7.1
-urllib3==2.5.0
+urllib3==2.6.0
 wasabi==0.10.1
 wcwidth==0.2.13
 word2number==1.1
