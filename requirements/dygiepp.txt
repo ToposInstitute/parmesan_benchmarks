@@ -13,7 +13,7 @@ colorlog==6.8.2
 conllu==4.1
 cymem==2.0.8
 exceptiongroup==1.2.0
-filelock==3.20.1
+filelock==3.20.3
 ftfy==6.1.1
 future==1.0.0
 greenlet==3.0.3
